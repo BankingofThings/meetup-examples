@@ -29,7 +29,7 @@ def triggerLocalAction(pin):
                      "-d",
                      "{\"actionID\":\" + ACTION_ID + \"}",
                      "-H",
-                     "\"Content-Type: application/json\"",
+                     "Content-Type: application/json",
                      "http://localhost:3001/actions"
                      ])
     print('Triggering action with ID ' + ACTION_ID)
