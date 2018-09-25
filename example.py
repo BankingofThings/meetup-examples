@@ -4,7 +4,9 @@ import subprocess
 
 import Adafruit_MPR121.MPR121 as MPR121
 
-ACTION_ID = 'PLACEHOLDER_ACTION_ID'
+ACTION_ID_1 = 'YOUR_FIRST_ACTION_ID'
+ACTION_ID_2 = 'YOUR_SECOND_ACTION_ID'
+ACTION_ID_3 = 'YOUR_THIRD_ACTION_ID'
 
 print('BoT Adafruit MPR121 Capacitive Touch Sensor Test')
 
@@ -24,15 +26,21 @@ if not cap.begin():
 # cap.begin(busnum=1)
 
 def triggerLocalAction(pin):
+    actionID = ACTION_ID_1
+    if(pin == 2):
+        actionID = ACTION_ID_2
+    if (pin == 3):
+        actionID = ACTION_ID_3
+
     print('Triggering Action with pin' + str(pin))
     subprocess.call(["curl",
                      "-d",
-                     "{\"actionID\":\"" + ACTION_ID + "\"}",
+                     "{\"actionID\":\"" + actionID + "\"}",
                      "-H",
                      "Content-Type: application/json",
                      "http://localhost:3001/actions"
                      ])
-    print('Triggering action with ID ' + ACTION_ID)
+    print('\nTriggered action with ID ' + actionID)
 
 
 # Main loop to print a message every time a pin is touched.
