@@ -27,7 +27,7 @@ def triggerLocalAction(pin):
     print('Triggering Action with pin' + str(pin))
     subprocess.call(["curl",
                      "-d",
-                     "{\"actionID\":\" + ACTION_ID + \"}",
+                     "{\"actionID\":\"" + ACTION_ID + "\"}",
                      "-H",
                      "Content-Type: application/json",
                      "http://localhost:3001/actions"
