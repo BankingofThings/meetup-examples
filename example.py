@@ -4,6 +4,7 @@ import subprocess
 
 import Adafruit_MPR121.MPR121 as MPR121
 
+ACTION_ID = 'PLACEHOLDER_ACTION_ID'
 
 print('BoT Adafruit MPR121 Capacitive Touch Sensor Test')
 
@@ -14,15 +15,24 @@ if not cap.begin():
     print('Error initializing MPR121.  Check your wiring!')
     sys.exit(1)
 
+
 # Alternatively, specify a custom I2C address such as 0x5B (ADDR tied to 3.3V),
 # 0x5C (ADDR tied to SDA), or 0x5D (ADDR tied to SCL).
-#cap.begin(address=0x5B)
+# cap.begin(address=0x5B)
 
 # Also you can specify an optional I2C bus with the bus keyword parameter.
-#cap.begin(busnum=1)
+# cap.begin(busnum=1)
 
 def triggerLocalAction(pin):
-   print('Triggering Action with pin' + str(pin))
+    print('Triggering Action with pin' + str(pin))
+    subprocess.call(["curl",
+                     "-d",
+                     "{\"actionID\":\" + ACTION_ID + \"}",
+                     "-H",
+                     "\"Content-Type: application/json\"",
+                     "http://localhost:3001/actions"
+                     ])
+    print('Triggering action with ID ' + ACTION_ID)
 
 
 # Main loop to print a message every time a pin is touched.
@@ -48,5 +58,4 @@ while True:
 
     if cap.is_touched(0):
         print('Pin 0 is being touched!')
-	triggerLocalAction({0})
-
+        triggerLocalAction({0})
